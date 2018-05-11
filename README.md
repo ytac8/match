@@ -1,6 +1,7 @@
 # match
 
-> A Vue.js project
+![match]('./static/img/icons/match.svg')
+
 
 ## Build Setup
 
