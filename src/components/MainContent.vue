@@ -33,7 +33,7 @@ export default {
 
 #profile {
     background-color: gray;
-    opacity: 50%;
+    opacity: 0.6;
 }
 
 </style>
