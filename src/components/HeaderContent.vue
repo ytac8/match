@@ -1,12 +1,16 @@
 <template>
     <div id="header-icon" v-bind:class="classObject">
-        <img :src="srcUrl" alt="">
+        <img :src="srcUrl" :alt="pagename">
     </div>
 </template>
 
 <script>
 export default {
-  props: ['position', 'pagename'],
+  name: 'HeaderContent',
+  props: {
+    position: String,
+    pagename: String
+  },
   data () {
     return {
       srcUrl: 'static/img/' + this.pagename + '.svg'

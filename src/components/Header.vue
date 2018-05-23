@@ -1,8 +1,8 @@
 <template>
     <div id="header">
-        <HeaderContent :pagename="left-content" position="left"></HeaderContent>
-        <HeaderContent :pagename="center-content" position="center"></HeaderContent>
-        <HeaderContent :pagename="right-content" position="right"></HeaderContent>
+        <HeaderContent :pagename="leftContent" position="left"></HeaderContent>
+        <HeaderContent :pagename="centerContent" position="center"></HeaderContent>
+        <HeaderContent :pagename="rightContent" position="right"></HeaderContent>
     </div>
 </template>
 
@@ -11,7 +11,7 @@ import HeaderContent from './HeaderContent.vue'
 
 export default {
   name: 'Header',
-  props: ['left-content', 'center-content', 'right-content'],
+  props: ['leftContent', 'centerContent', 'rightContent'],
   components: {
     HeaderContent
   }
@@ -19,11 +19,15 @@ export default {
 </script>
 
 <style scoped>
-#header{
+#header {
+    margin: 0;
+    height: 56px;
+    padding: 0 16px 0 24px;
+    background-color: #ffffff;
+    color: #ffffff;
     display:grid;
     grid-template-columns: 20% 60% 20%;
     padding-left: 0px;
     padding-right: 0px;
 }
-
 </style>
