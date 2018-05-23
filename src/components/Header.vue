@@ -1,8 +1,8 @@
 <template>
     <div id="header">
-        <HeaderContent pagename="left-content" position="left"></HeaderContent>
-        <HeaderContent pagename="center-content" position="center"></HeaderContent>
-        <HeaderContent pagename="right-content" position="right"></HeaderContent>
+        <HeaderContent :pagename="left-content" position="left"></HeaderContent>
+        <HeaderContent :pagename="center-content" position="center"></HeaderContent>
+        <HeaderContent :pagename="right-content" position="right"></HeaderContent>
     </div>
 </template>
 
@@ -21,17 +21,9 @@ export default {
 <style scoped>
 #header{
     display:grid;
-    gird-template-rows: 100px;
-    grid-template-columns: 20px 100px 20px;
-}
-.is-left{
-    color: red;
-}
-.is-right{
-    color: blue;
-}
-.is-center{
-    color: orange;
+    grid-template-columns: 20% 60% 20%;
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
 </style>

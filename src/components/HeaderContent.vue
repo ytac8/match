@@ -1,6 +1,6 @@
 <template>
     <div id="header-icon" v-bind:class="classObject">
-        <p>{{position}}</p>
+        <img :src="srcUrl" alt="">
     </div>
 </template>
 
@@ -9,7 +9,7 @@ export default {
   props: ['position', 'pagename'],
   data () {
     return {
-      'page-name': this.pagename
+      srcUrl: 'static/img/' + this.pagename + '.svg'
     }
   },
   computed: {
@@ -25,4 +25,16 @@ export default {
 </script>
 
 <style scoped>
+#header-icon{
+    height: 56px;
+}
+
+img{
+    width: 38px;
+    height: 38px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+}
 </style>
