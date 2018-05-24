@@ -1,22 +1,22 @@
 <template>
     <div id="login-page">
-        <div id="logo">
-            <img src="static/img/match.svg" alt="match logo">
-            <p id="match">match</p>
+        <div id="login-content">
+            <Logo></Logo>
             <LoginButton></LoginButton>
         </div>
-
     </div>
 </template>
 
 
 <script>
 import LoginButton from '../components/LoginButton.vue'
+import Logo from '../components/Logo.vue'
 
 export default {
   name: 'LoginPage',
   components: {
-    LoginButton
+    LoginButton,
+    Logo
   }
 }
 </script>
@@ -27,7 +27,7 @@ export default {
     background-color: white;
 }
 
-#logo {
+#login-content {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -42,9 +42,9 @@ img {
 }
 
 #match{
-    font-family: serif;
     font-size: 35px;
-    color: red;
+    font-weight: bold;
+    color: #ed1e79;
     text-align:center;
     position:relative;
     top:-30px;
