@@ -1,12 +1,25 @@
 <template>
   <div id="app">
-      <router-view></router-view>
+    <Header :left-content="leftContent" :center-content="centerContent" :right-content="leftContent"></Header>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
+import Header from './components/Header.vue'
+
 export default {
-  name: 'app'
+  name: 'app',
+  data () {
+    return {
+      'leftContent': 'match',
+      'centerContent': 'match',
+      'rightContent': 'match'
+    }
+  },
+  components: {
+    Header
+  }
 }
 </script>
 
