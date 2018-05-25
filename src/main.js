@@ -6,9 +6,12 @@ import router from './router'
 import VueOnsen from 'vue-onsenui'
 import 'onsenui/css/onsenui.css'
 import 'onsenui/css/onsen-css-components.css'
+import Element from 'element-ui'
+import 'element-theme-default'
 
 Vue.config.productionTip = false
 Vue.use(VueOnsen)
+Vue.use(Element)
 
 /* eslint-disable no-new */
 new Vue({

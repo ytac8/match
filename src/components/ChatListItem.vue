@@ -1,11 +1,11 @@
 <template>
     <v-ons-list-item modifier="longdivider">
         <div class="left">
-            <UserIcon></UserIcon>
+            <UserIcon :img-url="itemImg"></UserIcon>
         </div>
         <div class="center">
-            <span class="list-item__title">{{name}}</span>
-            <span class="list-item__subtitle">{{message}}</span>
+            <span class="list-item__title">{{itemName}}</span>
+            <span class="list-item__subtitle">{{itemMessage}}</span>
         </div>
     </v-ons-list-item>
 </template>
@@ -36,10 +36,6 @@ export default {
   },
   data () {
     return {
-      name: 'tamaki',
-      message: 'hahahaha',
-      helo: 'hello',
-      items: ['hello', 'world']
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-    <span class="thumbnail" :style="styleObject"></span>
+    <div class="thumbnail" :style="styleObject"></div>
 </template>
 
 <style scoped>
@@ -13,7 +13,7 @@
     height: 60px;
     border-radius:50%;
     border: 2px solid #fce8f9;
-    background-size: cover;
+    background-size: 60px 60px;
 }
 
 .thumnail-not-read {
@@ -24,10 +24,13 @@
 <script>
 export default {
   name: 'UserIcon',
+  props: {
+    imgUrl: String
+  },
   data () {
     return {
       styleObject: {
-        backgroundImage: 'url(static/img/profile.jpg)'
+        backgroundImage: 'url(' + this.imgUrl + ')'
       }
     }
   }
