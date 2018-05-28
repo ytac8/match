@@ -10,6 +10,11 @@ import Header from './components/Header.vue'
 
 export default {
   name: 'app',
+  props: {
+    nowPage: String,
+    leftPage: String,
+    rightPage: String
+  },
   data () {
     return {
       'leftContent': 'match',
@@ -35,6 +40,10 @@ body {
   color: #2c3e50;
   background-color: #eff2f7;
   height: 100%;
+}
+
+#header {
+    margin-top: 0;
 }
 
 </style>

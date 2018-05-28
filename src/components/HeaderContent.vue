@@ -1,6 +1,6 @@
 <template>
-    <div id="header-icon" v-bind:class="classObject">
-        <img :src="srcUrl" :alt="pagename">
+    <div v-if="visible" id="header-icon" v-bind:class="classObject">
+        <router-link :to="pageLink"><img :src="srcUrl" :alt="pagename"></router-link>
     </div>
 </template>
 
@@ -8,12 +8,14 @@
 export default {
   name: 'HeaderContent',
   props: {
+    visible: Boolean,
     position: String,
     pagename: String
   },
   data () {
     return {
-      srcUrl: 'static/img/' + this.pagename + '.svg'
+      srcUrl: 'static/img/' + this.pagename + '.svg',
+      pageLink: '/' + this.pagename
     }
   },
   computed: {

@@ -47,6 +47,7 @@ export default {
 
 .message-block {
     display: flex;
+    overflow: hidden;
 }
 
 .me .balloon{

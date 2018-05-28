@@ -1,8 +1,8 @@
 <template>
     <div id="header">
-        <HeaderContent :pagename="leftContent" position="left"></HeaderContent>
-        <HeaderContent :pagename="centerContent" position="center"></HeaderContent>
-        <HeaderContent :pagename="rightContent" position="right"></HeaderContent>
+        <HeaderContent :visible="visible" :pagename="leftContent" position="left"></HeaderContent>
+        <HeaderContent :visible="visible" :pagename="centerContent" position="center"></HeaderContent>
+        <HeaderContent :visible="visible" :pagename="rightContent" position="right"></HeaderContent>
     </div>
 </template>
 
@@ -11,7 +11,16 @@ import HeaderContent from './HeaderContent.vue'
 
 export default {
   name: 'Header',
-  props: ['leftContent', 'centerContent', 'rightContent'],
+  props: {
+    leftContent: String,
+    centerContent: String,
+    rightContent: String
+  },
+  computed: {
+    visible: function () {
+      return true
+    }
+  },
   components: {
     HeaderContent
   }
