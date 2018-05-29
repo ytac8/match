@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
+// import Header from '../components/Header.vue'
 import MainPage from '../pages/MainPage.vue'
 import ChatListPage from '../pages/ChatListPage.vue'
 import ChatPage from '../pages/ChatPage.vue'
@@ -20,14 +22,14 @@ export default new Router({
       component: ChatListPage
     },
     {
-      path: '/login',
-      name: 'LoginPage',
-      component: LoginPage
-    },
-    {
       path: '/chat',
       name: 'ChatPage',
       component: ChatPage
+    },
+    {
+      path: '/login',
+      name: 'LoginPage',
+      component: LoginPage
     }
 
   ]

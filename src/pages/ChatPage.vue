@@ -1,38 +1,39 @@
 <template>
     <div id="chat-page">
-        <div class="title">
-            <span class="name">Tamaki</span>
-        </div>
-        <div id="messages">
-            <MessageItem v-for="item in items" :key="item.id" :from="item.from" :message="item.message" :icon-url="item.iconUrl">
-                <p class="message">{{item.message}}</p>
-            </MessageItem>
-        </div>
-        <div class="message-input">
-            <input type="text" placeholder="message" class="text-input" v-model="input"></input>
-            <SendButton></SendButton>
-        </div>
+        <Header :header-position="headerPosition"></Header>
+        <div id="chat-disp">
+            <div class="title">
+                <span class="name">Tamaki</span>
+            </div>
+            <div id="messages"> <MessageItem v-for="item in items" :key="item.id" :from="item.from" :message="item.message" :icon-url="item.iconUrl"> </MessageItem>
+            </div>
+            <div class="message-input">
+                <input type="text" placeholder="message" class="text-input" v-model="input"></input>
+                <SendButton></SendButton>
+            </div> </div>
     </div>
 </template>
 
 <script>
 import MessageItem from '../components/MessageItem.vue'
+import Header from '../components/Header.vue'
 import SendButton from '../components/SendButton.vue'
+
 export default {
   name: 'ChatPage',
   data () {
     return {
+      headerPosition: 3,
       input: '',
       items: [
         {id: 1, iconUrl: 'static/img/profile.jpg', message: 'tamaki', from: 'tamaki'},
         {id: 2, iconUrl: 'static/img/profile.jpg', message: 'konchiha', from: 'me'},
-        {id: 3, iconUrl: 'static/img/profile.jpg', message: 'wahahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', from: 'tamaki'},
-        {id: 4, iconUrl: 'static/img/profile.jpg', message: 'konchihaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', from: 'me'}
-      ]
+        {id: 3, iconUrl: 'static/img/profile.jpg', message: 'wahahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', from: 'tamaki'}, {id: 4, iconUrl: 'static/img/profile.jpg', message: 'konchihaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', from: 'me'} ]
     }
   },
   components: {
     MessageItem,
+    Header,
     SendButton
   }
 }
@@ -40,8 +41,12 @@ export default {
 
 <style scoped>
 
-#chat-page { 
-    height: calc(100% - 62px - 56px);
+#chat-page {
+    height:100%;
+}
+
+#chat-disp { 
+    height: calc(100% - 62px - 51px);
 }
 
 .title{
@@ -54,7 +59,7 @@ export default {
 }
 
 #messages{
-    height: calc(100% - 86px);
+    height: calc(100% - 80px);
     overflow: auto;
 }
 
@@ -71,7 +76,6 @@ export default {
     border-radius: 5px; 
     padding:10px;
     margin:10px;
-
 }
 
 

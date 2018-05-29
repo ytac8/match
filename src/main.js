@@ -8,7 +8,6 @@ import 'onsenui/css/onsenui.css'
 import 'onsenui/css/onsen-css-components.css'
 import Element from 'element-ui'
 import 'element-theme-default'
-
 Vue.config.productionTip = false
 Vue.use(VueOnsen)
 Vue.use(Element)

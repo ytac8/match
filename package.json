@@ -14,6 +14,7 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
+    "animate.css": "^3.6.1",
     "element-theme-default": "^1.4.13",
     "element-ui": "^2.3.9",
     "onsenui": "^2.9.2",

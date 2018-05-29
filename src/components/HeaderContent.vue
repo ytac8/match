@@ -1,6 +1,6 @@
 <template>
-    <div v-if="visible" id="header-icon" v-bind:class="classObject">
-        <router-link :to="pageLink"><img :src="srcUrl" :alt="pagename"></router-link>
+    <div id="header-icon">
+        <img :src="srcUrl" :alt="pagename" @click="linkTo()">
     </div>
 </template>
 
@@ -8,23 +8,18 @@
 export default {
   name: 'HeaderContent',
   props: {
-    visible: Boolean,
-    position: String,
     pagename: String
   },
   data () {
     return {
-      srcUrl: 'static/img/' + this.pagename + '.svg',
-      pageLink: '/' + this.pagename
+      srcUrl: 'static/img/icons/' + this.pagename + '.svg'
     }
   },
-  computed: {
-    classObject: function () {
-      return {
-        'is-left': this.position === 'left',
-        'is-center': this.position === 'center',
-        'is-right': this.position === 'right'
-      }
+  methods: {
+    linkTo: function () {
+      if (this.pagename === 'back') {
+        this.$router.go(-1)
+      } else { this.$router.push({name: this.pagename}) }
     }
   }
 }

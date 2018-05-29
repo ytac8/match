@@ -1,8 +1,7 @@
 <template>
-    <div id="header">
-        <HeaderContent :visible="visible" :pagename="leftContent" position="left"></HeaderContent>
-        <HeaderContent :visible="visible" :pagename="centerContent" position="center"></HeaderContent>
-        <HeaderContent :visible="visible" :pagename="rightContent" position="right"></HeaderContent>
+    <div id="header" @click="hello()">
+        <HeaderContent v-for="item in contents" :pagename="item">
+        </HeaderContent>
     </div>
 </template>
 
@@ -12,13 +11,25 @@ import HeaderContent from './HeaderContent.vue'
 export default {
   name: 'Header',
   props: {
-    leftContent: String,
-    centerContent: String,
-    rightContent: String
+    headerPosition: Number
+  },
+  data () {
+    return {
+      contentsList: ['', 'ProfilePage', 'MainPage', 'ChatListPage', '']
+    }
   },
   computed: {
-    visible: function () {
-      return true
+    contents: function () {
+      if (this.headerPosition > 2) {
+        return ['back', '', '']
+      } else {
+        return this.contentsList.slice(this.headerPosition, this.headerPosition + 3)
+      }
+    }
+  },
+  methods: {
+    hello: function () {
+      console.log(this.contents)
     }
   },
   components: {
