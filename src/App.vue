@@ -21,13 +21,6 @@ export default {
       transitionName: 'slide-left'
     }
   },
-  methods: {
-    hello: function () {
-      console.log(this.nowPage)
-      console.log(this.leftPage)
-      console.log(this.rightPage)
-    }
-  },
   watch: {
     '$route' (to, from, next) {
       const toPath = to.path.split('/').slice(-1)[0]
@@ -52,11 +45,11 @@ body {
   margin-top: 0;
   height: 100%;
 } 
+
 body {
   margin: 0;
 
 }
-
 
 .slide-left-enter-active{
     overflow: hidden;

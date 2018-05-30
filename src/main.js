@@ -6,11 +6,12 @@ import router from './router'
 import VueOnsen from 'vue-onsenui'
 import 'onsenui/css/onsenui.css'
 import 'onsenui/css/onsen-css-components.css'
-import Element from 'element-ui'
 import 'element-theme-default'
+import Vue2TouchEvents from 'vue2-touch-events'
+
 Vue.config.productionTip = false
 Vue.use(VueOnsen)
-Vue.use(Element)
+Vue.use(Vue2TouchEvents)
 
 /* eslint-disable no-new */
 new Vue({

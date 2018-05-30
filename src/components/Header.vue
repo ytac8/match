@@ -1,5 +1,5 @@
 <template>
-    <div id="header" @click="hello()">
+    <div id="header">
         <HeaderContent v-for="item in contents" :pagename="item">
         </HeaderContent>
     </div>
@@ -25,11 +25,6 @@ export default {
       } else {
         return this.contentsList.slice(this.headerPosition, this.headerPosition + 3)
       }
-    }
-  },
-  methods: {
-    hello: function () {
-      console.log(this.contents)
     }
   },
   components: {

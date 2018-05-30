@@ -20,7 +20,11 @@ export default {
 <style scoped>
 
 .footer {
+    position:fixed;
+    bottom:0px;
+    width: calc(100% - 40px);
     margin:10px;
+    margin-top: 0px;
     padding:10px;
     display: flex;
     flex-direction: row-reverse;

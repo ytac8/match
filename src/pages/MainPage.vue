@@ -1,7 +1,7 @@
 <template>
     <div id="main-page">
         <Header :header-position="headerPosition"></Header>
-        <MainContent></MainContent>
+        <MainContent v-for="user in userData" :user="user"></MainContent>
         <Footer></Footer>
     </div>
 </template>
@@ -15,7 +15,12 @@ export default {
   name: 'MainPage',
   data () {
     return {
-      headerPosition: 1
+      headerPosition: 1,
+      userData: [
+        {name: '輝夜 月', profile: "輝夜月だよ〜〜〜∠( 'ω')／", img: 'runatan.jpg'},
+        {name: 'キズナアイ', profile: 'はいどーも！バーチャルユーチューバーのキズナアイです!', img: 'aitan.jpg'},
+        {name: 'ぽんぽこ', profile: 'こんばんにんにん！ぽんぽこだよ！', img: 'ponpoko.jpg'}
+      ]
     }
   },
   components: {
@@ -28,8 +33,14 @@ export default {
 
 <style scoped>
 
-.card {
-    background-color: #eff2f7;
+#main-page{
+    height:100%;
+    width: 100%;
+    position: relative;
+}
+
+#main-content {
+    position: absolute;
 }
 
 </style>
