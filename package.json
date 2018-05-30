@@ -14,11 +14,17 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
+    "@shopify/draggable": "^1.0.0-beta.7",
+    "@tweenjs/tween.js": "^17.2.0",
     "animate.css": "^3.6.1",
+    "draggable-vue-directive": "^1.2.0",
     "element-theme-default": "^1.4.13",
     "element-ui": "^2.3.9",
+    "es6-tween": "^5.2.2",
     "hammerjs": "^2.0.8",
+    "interactjs": "^1.3.4",
     "onsenui": "^2.9.2",
+    "tweenjs": "^1.0.2",
     "vue": "^2.5.2",
     "vue-onsenui": "^2.5.1",
     "vue-router": "^3.0.1",

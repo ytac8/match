@@ -17,9 +17,9 @@ export default {
     return {
       headerPosition: 1,
       userData: [
-        {name: '輝夜 月', profile: "輝夜月だよ〜〜〜∠( 'ω')／", img: 'runatan.jpg'},
-        {name: 'キズナアイ', profile: 'はいどーも！バーチャルユーチューバーのキズナアイです!', img: 'aitan.jpg'},
-        {name: 'ぽんぽこ', profile: 'こんばんにんにん！ぽんぽこだよ！', img: 'ponpoko.jpg'}
+        {id: 0, name: '輝夜 月', profile: "輝夜月だよ〜〜〜∠( 'ω')／", img: 'runatan.jpg'},
+        {id: 1, name: 'キズナアイ', profile: 'はいどーも！バーチャルユーチューバーのキズナアイです!', img: 'aitan.jpg'},
+        {id: 2, name: 'ぽんぽこ', profile: 'こんばんにんにん！ぽんぽこだよ！', img: 'ponpoko.jpg'}
       ]
     }
   },

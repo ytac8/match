@@ -6,6 +6,7 @@ import MainPage from '../pages/MainPage.vue'
 import ChatListPage from '../pages/ChatListPage.vue'
 import ChatPage from '../pages/ChatPage.vue'
 import LoginPage from '../pages/LoginPage.vue'
+import TestPage from '../pages/TestPage.vue'
 
 Vue.use(Router)
 
@@ -30,6 +31,11 @@ export default new Router({
       path: '/login',
       name: 'LoginPage',
       component: LoginPage
+    },
+    {
+      path: '/test',
+      name: 'TestPage',
+      component: TestPage
     }
 
   ]
