@@ -5,7 +5,6 @@
                 @dragend="touchLeave">
             <v-ons-card :style="styleObject">
             <div class="content">
-                <img id="hello" alt="koncha">
                 <div class="profile">
                     <p class="name">{{user.name}}</p>
                     <p class="work-per-week"></p>
@@ -43,6 +42,7 @@ export default {
     }
   },
   methods: {
+    // drag開始時の処理
     dragstart: function (e) {
       let dragObj = document.getElementById('user' + this.user.id)
       let boxLeft = dragObj.getBoundingClientRect().left
@@ -53,7 +53,7 @@ export default {
       this.firstTouchPosition.y = e.gesture.center.pageY
       dragObj.style.position = 'absolute'
     },
-
+    // drag中の処理
     drag: function (e) {
       let touchX = e.changedTouches[0].pageX
       let touchY = e.changedTouches[0].pageY
@@ -62,17 +62,36 @@ export default {
       dragObj.style.top = (touchY - this.positionDiff.y) + 'px'
     },
 
+    // drag終了時の処理
     touchLeave: function (e) {
-      let dragDistanceCriterion = window.parent.screen.width * 0.15
-      let dragObj = document.getElementById('user' + this.user.id)
+      let dragDistanceCriterion = window.parent.screen.width * 0.9
       let touchX = e.gesture.center.pageX
-      // let touchY = e.gesture.center.pageY
+      let touchY = e.gesture.center.pageY
+      let objPosition = {x: touchX - this.positionDiff.x, y: touchY - this.positionDiff.y}
+
       if (Math.abs(touchX - this.firstTouchPosition.x) < dragDistanceCriterion) {
-        dragObj.style.position = 'absolute'
-        dragObj.style.left = this.originalPosition.x + 'px'
-        dragObj.style.top = this.originalPosition.y + 'px'
+        let toPosition = {x: this.originalPosition.x, y: this.originalPosition.y}
+        this.move('user' + this.user.id, objPosition, toPosition, 500)
       } else {
-        this.$emit('remove')
+        // this.$emit('remove')
+      }
+    },
+
+    move: function (objectId, fromPosition, toPosition, interval) {
+      let dragObj = document.getElementById(objectId)
+      let dragAnimate = dragObj.animate([{
+        top: fromPosition.y + 'px',
+        left: fromPosition.x + 'px'
+      },
+      {
+        top: toPosition.y + 'px',
+        left: toPosition.x + 'px',
+        easing: 'ease-in'
+
+      }], 200)
+      dragAnimate.onfinish = function () {
+        dragObj.style.left = toPosition.x + 'px'
+        dragObj.style.top = toPosition.y + 'px'
       }
     }
   },
