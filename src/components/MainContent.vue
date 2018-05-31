@@ -1,9 +1,9 @@
 <template>
-    <div id="main-content">
-        <v-ons-card :id=id :style="styleObject" draggable="true"
+    <div class="main-content" :id=id draggable="true"
                 @touch="dragstart"
                 @touchmove="drag"
-                @dragend="leave">
+                @dragend="touchLeave">
+            <v-ons-card :style="styleObject">
             <div class="content">
                 <img id="hello" alt="koncha">
                 <div class="profile">
@@ -16,9 +16,6 @@
     </div>
 </template>
 <script>
-
-// import {Tween, Easing} from 'es6-tween'
-
 export default {
   name: 'MainContent',
   props: {
@@ -26,15 +23,23 @@ export default {
   },
   data () {
     return {
+      id: 'user' + this.user.id,
+      originalPosition: {
+        x: 0,
+        y: 56
+      },
       positionDiff: {
+        x: 0,
+        y: 0
+      },
+      firstTouchPosition: {
         x: 0,
         y: 0
       },
       styleObject: {
         color: 'white',
         backgroundImage: 'url(static/img/profile/' + this.user.img + ')'
-      },
-      id: 'user' + this.user.id
+      }
     }
   },
   methods: {
@@ -44,22 +49,32 @@ export default {
       let boxTop = dragObj.getBoundingClientRect().top
       this.positionDiff.x = e.gesture.center.pageX - boxLeft
       this.positionDiff.y = e.gesture.center.pageY - boxTop
+      this.firstTouchPosition.x = e.gesture.center.pageX
+      this.firstTouchPosition.y = e.gesture.center.pageY
       dragObj.style.position = 'absolute'
     },
+
     drag: function (e) {
       let touchX = e.changedTouches[0].pageX
       let touchY = e.changedTouches[0].pageY
       let dragObj = document.getElementById('user' + this.user.id)
-      dragObj.style.left = touchX - this.positionDiff.x + 'px'
-      dragObj.style.top = touchY - this.positionDiff.y + 'px'
+      dragObj.style.left = (touchX - this.positionDiff.x) + 'px'
+      dragObj.style.top = (touchY - this.positionDiff.y) + 'px'
     },
-    leave: function (e) {
-      // console.log(e.target.getBoundingClientRect())
+
+    touchLeave: function (e) {
+      let dragDistanceCriterion = window.parent.screen.width * 0.15
+      let dragObj = document.getElementById('user' + this.user.id)
+      let touchX = e.gesture.center.pageX
+      // let touchY = e.gesture.center.pageY
+      if (Math.abs(touchX - this.firstTouchPosition.x) < dragDistanceCriterion) {
+        dragObj.style.position = 'absolute'
+        dragObj.style.left = this.originalPosition.x + 'px'
+        dragObj.style.top = this.originalPosition.y + 'px'
+      } else {
+        this.$emit('remove')
+      }
     }
-    // throwRight: function (e) {
-    //   console.log('aaa')
-    //   new Tween(this.$el, {x: 0, backgroundColor: '#fc0'}).to({x: 200, backgroundColor: '#0cf'}, 2000).easing(Easing.Elastic.InOut).start()
-    // }
   },
   components: {
   }
@@ -67,10 +82,12 @@ export default {
 </script>
 
 <style lang="postcss" scoped>
-#main-content{
+.main-content{
     height:calc(100% - 56px - 100px);
     width: 100%;
     margin:0;
+    position: absolute;
+    z-index:3
 }
 
 .card {

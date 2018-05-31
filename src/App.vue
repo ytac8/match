@@ -44,6 +44,7 @@ body {
   background-color: #eff2f7;
   margin-top: 0;
   height: 100%;
+  overflow:hidden;
 } 
 
 body {

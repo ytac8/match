@@ -1,7 +1,11 @@
 <template>
     <div id="main-page">
         <Header :header-position="headerPosition"></Header>
-        <MainContent v-for="user in userData" :user="user"></MainContent>
+        <MainContent 
+            v-for="(user, index) in userData"
+            :key=user.id 
+            :user="user" 
+            v-on:remove="userData.splice(index, 1)"></MainContent>
         <Footer></Footer>
     </div>
 </template>
@@ -39,8 +43,5 @@ export default {
     position: relative;
 }
 
-#main-content {
-    position: absolute;
-}
 
 </style>

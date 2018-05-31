@@ -44,5 +44,6 @@ export default {
     grid-template-columns: 20% 60% 20%;
     padding-left: 0px;
     padding-right: 0px;
+    z-index:0;
 }
 </style>

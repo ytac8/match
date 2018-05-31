@@ -29,6 +29,7 @@ export default {
     width: 60px;
     border-radius: 50%;
     background-color: white;
+    z-index:0
 }
 
 img{
