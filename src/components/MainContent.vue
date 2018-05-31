@@ -64,21 +64,28 @@ export default {
 
     // drag終了時の処理
     touchLeave: function (e) {
-      let dragDistanceCriterion = window.parent.screen.width * 0.9
+      let dragDistanceCriterion = window.parent.screen.width * 0.2
       let touchX = e.gesture.center.pageX
       let touchY = e.gesture.center.pageY
       let objPosition = {x: touchX - this.positionDiff.x, y: touchY - this.positionDiff.y}
+      let dragObj = document.getElementById('user' + this.user.id)
 
       if (Math.abs(touchX - this.firstTouchPosition.x) < dragDistanceCriterion) {
         let toPosition = {x: this.originalPosition.x, y: this.originalPosition.y}
-        this.move('user' + this.user.id, objPosition, toPosition, 500)
+        let animate = this.move(dragObj, objPosition, toPosition, 500)
+        animate.onfinish = function () {
+          dragObj.style.left = toPosition.x + 'px'
+          dragObj.style.top = toPosition.y + 'px'
+        }
       } else {
-        // this.$emit('remove')
+        let animate = this.thorowAway(dragObj, objPosition, 1000)
+        animate.onfinish = function () {
+          dragObj.remove()
+        }
       }
     },
 
-    move: function (objectId, fromPosition, toPosition, interval) {
-      let dragObj = document.getElementById(objectId)
+    move: function (dragObj, fromPosition, toPosition, interval) {
       let dragAnimate = dragObj.animate([{
         top: fromPosition.y + 'px',
         left: fromPosition.x + 'px'
@@ -89,10 +96,15 @@ export default {
         easing: 'ease-in'
 
       }], 200)
-      dragAnimate.onfinish = function () {
-        dragObj.style.left = toPosition.x + 'px'
-        dragObj.style.top = toPosition.y + 'px'
-      }
+      return dragAnimate
+    },
+    thorowAway: function (dragObj, fromPosition, interval) {
+      let deltaX = fromPosition.x - this.originalPosition.x
+      let deltaY = fromPosition.y - this.originalPosition.y
+      let grad = deltaY / deltaX
+      let toPosition = {x: deltaX * 6, y: grad * deltaX * 6}
+      let animate = this.move(dragObj, fromPosition, toPosition, interval)
+      return animate
     }
   },
   components: {
