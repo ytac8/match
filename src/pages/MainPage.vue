@@ -6,7 +6,8 @@
             :key=user.id 
             :user="user" 
             v-on:remove="userData.splice(index, 1)"></MainContent>
-        <Footer></Footer>
+        <!-- <div style="background-color:red; width:100%; height:10%; z-index:10; position:fixed; bottom:0;" @click="hello"></div> -->
+        <Footer :user-info="userData[userData.length - 1]" v-on:remove="remove"></Footer>
     </div>
 </template>
 
@@ -25,6 +26,11 @@ export default {
         {id: 1, name: 'キズナアイ', profile: 'はいどーも！バーチャルユーチューバーのキズナアイです!', img: 'aitan.jpg'},
         {id: 2, name: 'ぽんぽこ', profile: 'こんばんにんにん！ぽんぽこだよ！', img: 'ponpoko.jpg'}
       ]
+    }
+  },
+  methods: {
+    remove: function () {
+      this.userData.splice(this.userData.length - 1, 1)
     }
   },
   components: {

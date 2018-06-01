@@ -1,5 +1,5 @@
 <template>
-    <div class="like-button">
+    <div class="like-button" @touch="tapped">
         <img :src="likeImg">
     </div>
 </template>
@@ -8,16 +8,44 @@
 export default {
   name: 'LikeButton',
   props: {
-    buttonName: String
+    buttonName: String,
+    userId: Number
+  },
+  data () {
+    return {
+      isLike: (this.buttonName === 'like')
+    }
   },
   computed: {
     likeImg: function () {
-      return (this.buttonName === 'like') ? 'static/img/icons/' + this.buttonName + '.png' : 'static/img/icons/' + this.buttonName + '.png'
+      return this.isLike ? 'static/img/icons/' + this.buttonName + '.png' : 'static/img/icons/' + this.buttonName + '.png'
     }
   },
   methods: {
-    tapped: function (like) {
-      alert(like)
+    tapped: function () {
+      let userObj = document.getElementById('user' + this.userId)
+      let objPosition = {x: 0, y: 0}
+      let toPosition = (this.isLike) ? {x: 500, y: 56} : {x: -500, y: 56}
+      let animate = this.move(userObj, objPosition, toPosition, 1000)
+      let vm = this
+      animate.onfinish = function () {
+        userObj.style.left = toPosition.x + 'px'
+        userObj.style.top = toPosition.y + 'px'
+        vm.$emit('remove')
+      }
+    },
+    move: function (dragObj, fromPosition, toPosition, interval) {
+      let dragAnimate = dragObj.animate([{
+        top: fromPosition.y + 'px',
+        left: fromPosition.x + 'px'
+      },
+      {
+        top: toPosition.y + 'px',
+        left: toPosition.x + 'px',
+        easing: 'ease-in'
+
+      }], 200)
+      return dragAnimate
     }
   }
 }

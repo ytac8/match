@@ -78,9 +78,16 @@ export default {
           dragObj.style.top = toPosition.y + 'px'
         }
       } else {
-        let animate = this.thorowAway(dragObj, objPosition, 1000)
+        let deltaX = objPosition.x - this.originalPosition.x
+        let deltaY = objPosition.y - this.originalPosition.y
+        let grad = deltaY / deltaX
+        let toPosition = {x: deltaX * 6, y: grad * deltaX * 6}
+        let animate = this.move(dragObj, objPosition, toPosition, 1000)
+        let vm = this
         animate.onfinish = function () {
-          dragObj.remove()
+          dragObj.style.left = toPosition.x + 'px'
+          dragObj.style.top = toPosition.y + 'px'
+          vm.$emit('remove')
         }
       }
     },
@@ -97,17 +104,7 @@ export default {
 
       }], 200)
       return dragAnimate
-    },
-    thorowAway: function (dragObj, fromPosition, interval) {
-      let deltaX = fromPosition.x - this.originalPosition.x
-      let deltaY = fromPosition.y - this.originalPosition.y
-      let grad = deltaY / deltaX
-      let toPosition = {x: deltaX * 6, y: grad * deltaX * 6}
-      let animate = this.move(dragObj, fromPosition, toPosition, interval)
-      return animate
     }
-  },
-  components: {
   }
 }
 </script>
