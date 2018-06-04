@@ -14,7 +14,7 @@ export default {
   },
   methods: {
     send: function () {
-      alert('hello')
+      this.$emit('send')
     }
   }
 }

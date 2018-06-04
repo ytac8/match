@@ -8,8 +8,8 @@
             <div id="messages"> <MessageItem v-for="item in items" :key="item.id" :from="item.from" :message="item.message" :icon-url="item.iconUrl"> </MessageItem>
             </div>
             <div class="message-input">
-                <input type="text" placeholder="message" class="text-input" v-model="input"></input>
-                <SendButton></SendButton>
+                <input id="input-box" type="text" placeholder="message" class="text-input" v-model="input"></input>
+                <SendButton v-on:send="send"></SendButton>
             </div> </div>
     </div>
 </template>
@@ -26,9 +26,41 @@ export default {
       headerPosition: 3,
       input: '',
       items: [
-        {id: 1, iconUrl: 'static/img/profile.jpg', message: 'tamaki', from: 'tamaki'},
-        {id: 2, iconUrl: 'static/img/profile.jpg', message: 'konchiha', from: 'me'},
-        {id: 3, iconUrl: 'static/img/profile.jpg', message: 'wahahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', from: 'tamaki'}, {id: 4, iconUrl: 'static/img/profile.jpg', message: 'konchihaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', from: 'me'} ]
+        {id: 1, iconUrl: 'static/img/profile/aitan.jpg', message: 'tamaki', from: 'tamaki'},
+        {id: 2, iconUrl: 'static/img/profile/ponpoko.jpg', message: 'konchiha', from: 'me'},
+        {id: 3, iconUrl: 'static/img/aitan.jpg', message: 'wahahahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', from: 'tamaki'}, {id: 4, iconUrl: 'static/img/profile.jpg', message: 'konchihaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', from: 'me'} ]
+    }
+  },
+  mounted: function () {
+    let messages = document.getElementById('messages')
+    messages.scrollTo(0, messages.scrollHeight)
+  },
+  methods: {
+    send: function () {
+      if (this.input !== '') {
+        let lastId = this.items[this.items.length - 1].id
+        this.items.push(
+          { id: lastId + 1,
+            iconUrl: 'static/img/profile/ponpoko.jpg',
+            message: this.input,
+            from: 'me'
+          })
+      }
+      this.message = ''
+      this.$nextTick(function () {
+        document.getElementById('input-box').value = ''
+      })
+    },
+    check: function () {
+      console.log(this.items)
+    }
+  },
+  watch: {
+    items: function () {
+      this.$nextTick(function () {
+        let messages = document.getElementById('messages')
+        messages.scrollTo(0, messages.scrollHeight)
+      })
     }
   },
   components: {
