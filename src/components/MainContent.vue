@@ -4,12 +4,10 @@
                 @touchmove="drag"
                 @dragend="touchLeave">
             <v-ons-card :style="styleObject">
-            <div class="content">
-                <div class="profile">
-                    <p class="name">{{user.name}}</p>
-                    <p class="work-per-week"></p>
-                    <p class="self-intro">{{user.profile}}</p>
-                </div>
+            <div class="profile">
+                <p class="name">{{user.name}}</p>
+                <p class="work-per-week"></p>
+                <p class="self-intro">{{user.profile}}</p>
             </div>
         </v-ons-card>
     </div>
@@ -64,7 +62,7 @@ export default {
 
     // drag終了時の処理
     touchLeave: function (e) {
-      let dragDistanceCriterion = window.parent.screen.width * 0.2
+      let dragDistanceCriterion = window.parent.screen.width * 0.10
       let touchX = e.gesture.center.pageX
       let touchY = e.gesture.center.pageY
       let objPosition = {x: touchX - this.positionDiff.x, y: touchY - this.positionDiff.y}
@@ -101,7 +99,6 @@ export default {
         top: toPosition.y + 'px',
         left: toPosition.x + 'px',
         easing: 'ease-in'
-
       }], 200)
       return dragAnimate
     }
@@ -127,7 +124,26 @@ export default {
 }
 
 .profile {
-    background-color: gray;
-    opacity: 0.6;
+    background-color: rgba(0.5,0.6,0.5, 0.5);
+    width: 100%;
+    height: 35%;
+    position:relative;
+    bottom:0;
+}
+.name {
+    opacity:1;
+    color:white;
+    font-size: 28px;
+    font-weight:bold;
+    padding-left: 20px;
+    padding-top: 40px;
+    margin:0px;
+}
+.self-intro {
+    opacity:1;
+    color:white;
+    font-size: 16px;
+    padding-left: 20px;
 }
 </style>
+

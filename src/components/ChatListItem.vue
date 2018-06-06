@@ -43,11 +43,6 @@ export default {
       userImg: this.item.img
     }
   },
-  watch: {
-    isDeleteTabOpend: function () {
-      console.log(this.isDeleteTabOpend)
-    }
-  },
   methods: {
     // drag開始時の処理
     dragstart: function (e) {
@@ -69,11 +64,21 @@ export default {
         dragObj.style.position = 'relative'
       }
     },
+    // tapだけしたときの処理
     touchEnd: function (e) {
       let nowTouchPoint = e.changedTouches[0].pageX
       let touchDistance = Math.abs(this.firstTouchPosition - nowTouchPoint)
       if (touchDistance < this.dragCriterion && this.isDeleteTabOpend === 0) {
         this.$router.push({name: 'ChatPage', params: {id: this.chatId}})
+      } else if (touchDistance < this.dragCriterion && this.isDeleteTabOpend === 1) {
+        this.isDeleteTabOpend = 0
+        let obj = document.getElementById('user' + this.chatId)
+        let objPosition = obj.getBoundingClientRect().left
+        let toPosition = 0
+        let animate = this.move(obj, objPosition, toPosition, 300)
+        animate.onfinish = function () {
+          obj.style.left = toPosition + 'px'
+        }
       }
     },
 
@@ -91,7 +96,7 @@ export default {
         animate.onfinish = function () {
           dragObj.style.left = toPosition + 'px'
         }
-      } else if (objPosition < -criterion / 2) {
+      } else if (objPosition < -criterion / 2 && this.isDeleteTabOpend === 0) {
         this.isDeleteTabOpend = 1
         let toPosition = -criterion
         let animate = this.move(dragObj, objPosition, toPosition, 300)
@@ -99,7 +104,8 @@ export default {
           dragObj.style.left = toPosition + 'px'
         }
       } else if (objPosition < 0) {
-        let toPosition = -criterion
+        this.isDeleteTabOpend = 0
+        let toPosition = 0
         let animate = this.move(dragObj, objPosition, toPosition, 300)
         animate.onfinish = function () {
           dragObj.style.left = toPosition + 'px'
@@ -116,10 +122,8 @@ export default {
         easing: 'ease-in'
       }], interval)
       return dragAnimate
-    },
-    swipe: function (e) {
-      console.log(this.isDeleteTabOpend)
     }
+
   }
 }
 </script>

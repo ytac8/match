@@ -4,9 +4,9 @@
             <Logo></Logo>
             <LoginButton></LoginButton>
         </div>
+        <div @click="login" style="width:100%; height:60px; position:fixed; bottom:0; background-color:red;"></div>
     </div>
 </template>
-
 
 <script>
 import LoginButton from '../components/LoginButton.vue'
@@ -14,6 +14,12 @@ import Logo from '../components/Logo.vue'
 
 export default {
   name: 'LoginPage',
+  methods: {
+    login: function () {
+      localStorage.setItem('isLoggedIn', 'true')
+      this.$router.push({name: 'MainPage'})
+    }
+  },
   components: {
     LoginButton,
     Logo

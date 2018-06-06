@@ -9,6 +9,7 @@
 <script>
 
 const pathDict = {
+  'login': -1,
   'profile': 0,
   '': 1,
   'chat_list': 2,
@@ -25,7 +26,7 @@ export default {
     '$route' (to, from, next) {
       const toPath = to.path.split('/')[1]
       const fromPath = from.path.split('/')[1]
-      this.transitionName = (pathDict[toPath] - pathDict[fromPath]) > 0 ? 'slide-left' : 'slide-right'
+      this.transitionName = (pathDict[toPath] - pathDict[fromPath]) >= 0 ? 'slide-left' : 'slide-right'
     }
   }
 }
