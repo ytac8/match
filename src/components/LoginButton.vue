@@ -1,14 +1,45 @@
 <template>
     <div id="login-button">
-        <span id="login-text">Sign in with Facebook</span>
+        <span id="login-text" @touch="login" >Sign in with Facebook</span>
+        </div>
     </div>
 </template>
-
 
 <script>
 
 export default {
-  name: 'LoginButton'
+  name: 'LoginButton',
+  data () {
+    return {
+      parameter: 0
+    }
+  },
+  methods: {
+    login () {
+      let sessId = function guid () {
+        function s4 () {
+          return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1)
+        }
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4()
+      }
+      localStorage.setItem('sessId', sessId)
+
+      let fbUrl = 'https://www.facebook.com/v3.0/dialog/oauth?' +
+                'client_id=858585164342416' +
+                '&redirect_uri=https://localhost:8080/#/login' +
+                '&state={sessId=' + sessId() + '}'
+      console.log(fbUrl)
+      window.location.href = fbUrl
+    },
+    checkLoginState () {
+    },
+    statusChangeCallback (response) {
+    },
+    testAPI () {
+    }
+  }
 }
 </script>
 

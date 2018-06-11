@@ -128,7 +128,6 @@ export default {
     width: 100%;
     height: 35%;
     position:relative;
-    bottom:0;
 }
 .name {
     opacity:1;

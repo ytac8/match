@@ -1,8 +1,8 @@
 <template>
     <div id="app">
-          <transition :name="transitionName">
-              <router-view></router-view>
-          </transition>
+        <transition :name="transitionName">
+                <router-view></router-view>
+        </transition>
     </div>
 </template>
 
@@ -17,6 +17,8 @@ const pathDict = {
 
 export default {
   name: 'app',
+  created () {
+  },
   data () {
     return {
       transitionName: 'slide-left'
@@ -52,6 +54,10 @@ body {
   margin: 0;
 
 }
+.wrapper{
+    height:100%;
+}
+
 .slide-left-enter-active{
     transition: all .5s ease;
 }
