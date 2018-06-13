@@ -18,14 +18,14 @@ Vue.use(Vue2TouchEvents)
 // Vue.use(VueSocketio, 'localhost')
 Vue.router = router
 
-router.beforeEach((to, from, next) => {
-  console.log(localStorage.getItem('isLoggedIn'))
-  if (to.matched.some(record => record.meta.requiresAuth) && !localStorage.getItem('isLoggedIn')) {
-    next({path: '/login', query: {redirect: to.fullPath}})
-  } else {
-    next()
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   console.log(localStorage.getItem('isLoggedIn'))
+//   if (to.matched.some(record => record.meta.requiresAuth) && !localStorage.getItem('isLoggedIn')) {
+//     next({path: '/login', query: {redirect: to.fullPath}})
+//   } else {
+//     next()
+//   }
+// })
 
 /* eslint-disable no-new */
 new Vue({
