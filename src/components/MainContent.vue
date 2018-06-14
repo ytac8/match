@@ -13,6 +13,8 @@
     </div>
 </template>
 <script>
+import $ from 'jquery'
+
 export default {
   name: 'MainContent',
   props: {
@@ -66,41 +68,37 @@ export default {
       let touchX = e.gesture.center.pageX
       let touchY = e.gesture.center.pageY
       let objPosition = {x: touchX - this.positionDiff.x, y: touchY - this.positionDiff.y}
-      let dragObj = this.$el
 
       if (Math.abs(touchX - this.firstTouchPosition.x) < dragDistanceCriterion) {
         let toPosition = {x: this.originalPosition.x, y: this.originalPosition.y}
-        let animate = this.move(dragObj, objPosition, toPosition, 500)
-        animate.onfinish = function () {
-          dragObj.style.left = toPosition.x + 'px'
-          dragObj.style.top = toPosition.y + 'px'
-        }
+        this.move(toPosition, 500)
       } else {
         let deltaX = objPosition.x - this.originalPosition.x
         let deltaY = objPosition.y - this.originalPosition.y
         let grad = deltaY / deltaX
-        let toPosition = {x: deltaX * 6, y: grad * deltaX * 6}
-        let animate = this.move(dragObj, objPosition, toPosition, 1000)
-        let vm = this
-        animate.onfinish = function () {
-          dragObj.style.left = toPosition.x + 'px'
-          dragObj.style.top = toPosition.y + 'px'
-          vm.$emit('remove')
-        }
+        let toPosition = {x: deltaX * 7, y: grad * deltaX * 7}
+        this.moveAndRemove(toPosition, 800)
       }
     },
 
-    move: function (dragObj, fromPosition, toPosition, interval) {
-      let dragAnimate = dragObj.animate([{
-        top: fromPosition.y + 'px',
-        left: fromPosition.x + 'px'
-      },
-      {
-        top: toPosition.y + 'px',
-        left: toPosition.x + 'px',
-        easing: 'ease-in'
-      }], 200)
-      return dragAnimate
+    move: function (toPosition, interval) {
+      $('#' + this.id).animate(
+        {
+          top: toPosition.y + 'px',
+          left: toPosition.x + 'px'
+        }, 500, 'swing'
+      )
+    },
+    moveAndRemove: function (toPosition, interval) {
+      let vm = this
+      $('#' + this.id).animate(
+        {
+          top: toPosition.y + 'px',
+          left: toPosition.x + 'px'
+        }, 500, 'swing', function () {
+          vm.$emit('remove')
+        }
+      )
     }
   }
 }
