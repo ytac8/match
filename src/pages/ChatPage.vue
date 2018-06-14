@@ -5,12 +5,15 @@
             <div class="title">
                 <span class="name">Tamaki</span>
             </div>
-            <div id="messages"> <MessageItem v-for="item in items" :key="item.id" :from="item.from" :message="item.message" :icon-url="item.iconUrl"> </MessageItem>
+            <div id="messages"> <MessageItem v-for="item in items" :key="item.messageId" :from="item.from" :message="item.message" :icon-url="item.iconUrl"> </MessageItem>
             </div>
             <div class="message-input">
                 <input id="input-box" type="text" placeholder="message" class="text-input" v-model="input"></input>
                 <SendButton v-on:send="send"></SendButton>
-            </div> </div>
+            </div> 
+        </div>
+        <!-- <div style="background-color:red; position:fixed; bottom:50; width:100%; height:40px;" @touch="check"></div> -->
+
     </div>
 </template>
 
@@ -28,11 +31,27 @@ export default {
       items: []
     }
   },
+  created () {
+    this.setItems()
+  },
   mounted: function () {
     let messages = document.getElementById('messages')
     messages.scrollTo(0, messages.scrollHeight)
   },
   methods: {
+    setItems () {
+      let url = 'http://localhost:8080/match/ChatServlet?id=' + this.$route.params.id
+      this.axios.get(url).then((response) => {
+        this.items = response.data.map(function (e) {
+          if (e.from === 5) {
+            e.from = 'me'
+          } else {
+            e.from = 'other'
+          }
+          return e
+        })
+      })
+    },
     send: function () {
       if (this.input !== '') {
         let lastId = this.items[this.items.length - 1].id
@@ -42,8 +61,30 @@ export default {
             message: this.input,
             from: 'me'
           })
+
+        let date = new Date()
+        let year = date.getFullYear()
+        let month = date.getMonth()
+        let day = date.getDate()
+        let hour = date.getHours()
+        let minute = date.getMinutes()
+        let second = date.getSeconds()
+        let datetime = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second
+        let params = new URLSearchParams()
+        params.append('userFrom', '5')
+        params.append('message', this.input)
+        params.append('matchId', this.$route.params.id)
+        params.append('time', datetime)
+
+        this.axios.post('http://localhost:8080/match/ChatServlet', params)
+          .then(response => {
+            console.log('aaaaw')
+            console.log(response.data.message)
+          }).catch(error => {
+            console.log(error)
+          })
       }
-      this.message = ''
+      this.input = ''
       this.$nextTick(function () {
         document.getElementById('input-box').value = ''
       })
