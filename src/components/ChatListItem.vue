@@ -31,16 +31,16 @@ export default {
   },
   data () {
     return {
-      routerLink: 'chat/:' + this.item.id,
+      routerLink: 'chat/:' + this.item.chatId,
       dragCriterion: 2,
       originalPosition: 0,
       positionDiff: 0,
       firstTouchPosition: 0,
       isDeleteTabOpend: 0,
-      chatId: this.item.id,
-      lastMessage: this.item.message,
-      userName: this.item.name,
-      userImg: this.item.img
+      chatId: this.item.chatId,
+      lastMessage: this.item.lastMessage,
+      userName: this.item.userName,
+      userImg: this.item.imgUrl
     }
   },
   methods: {

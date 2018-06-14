@@ -3,10 +3,10 @@
         <Header :header-position="headerPosition"></Header>
         <MainContent 
             v-for="(user, index) in userData"
-            :key=user.id 
+            :key=user.userId 
             :user="user" 
             v-on:remove="userData.splice(index, 1)"></MainContent>
-        <div style="background-color:red; width:100%; height:10%; z-index:10; position:fixed; bottom:0;" @click="hello"></div>
+        <!-- <div style="background-color:red; width:100%; height:10%; z-index:10; position:fixed; bottom:0;" @click="hello"></div> -->
         <Footer :user-info="userData[userData.length - 1]" v-on:remove="remove"></Footer>
     </div>
 </template>
@@ -21,29 +21,21 @@ export default {
   data () {
     return {
       headerPosition: 1,
-      userData: [
-        {id: 0, name: '輝夜 月', profile: "輝夜月だよ〜〜〜∠( 'ω')／", img: 'runatan.jpg'},
-        {id: 1, name: 'キズナアイ', profile: 'はいどーも！バーチャルユーチューバーのキズナアイです!', img: 'aitan.jpg'},
-        {id: 2, name: 'ぽんぽこ', profile: 'こんばんにんにん！ぽんぽこだよ！', img: 'ponpoko.jpg'}
-      ]
+      dataCount: 0,
+      userData: []
     }
   },
-  computed: {
-    dataset: function () {
-      this.axios.get('http://localhost:8080/match/MainPageServlet').then((response) => {
-        console.log('aa')
-      })
-    }
-
+  created () {
+    this.setUserData()
   },
   methods: {
+    setUserData () {
+      this.axios.get('http://localhost:8080/match/MainPageServlet').then((response) => {
+        this.userData = response.data
+      })
+    },
     remove: function () {
       this.userData.splice(this.userData.length - 1, 1)
-    },
-    hello: function () {
-      this.axios.get('http://localhost:8080/match/MainPageServlet').then((response) => {
-        console.log('aa')
-      })
     }
   },
   components: {

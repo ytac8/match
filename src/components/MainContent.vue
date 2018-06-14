@@ -5,8 +5,8 @@
                 @dragend="touchLeave">
             <v-ons-card :style="styleObject">
             <div class="profile">
-                <p class="name">{{user.name}}</p>
-                <p class="work-per-week"></p>
+                <p class="name">{{user.userName}}</p>
+                <p class="work-per-week">週{{user.workPerWeek}}回</p>
                 <p class="self-intro">{{user.profile}}</p>
             </div>
         </v-ons-card>
@@ -20,7 +20,7 @@ export default {
   },
   data () {
     return {
-      id: 'user' + this.user.id,
+      id: 'user' + this.user.userId,
       originalPosition: {
         x: 0,
         y: 56
@@ -35,14 +35,14 @@ export default {
       },
       styleObject: {
         color: 'white',
-        backgroundImage: 'url(static/img/profile/' + this.user.img + ')'
+        backgroundImage: 'url(' + this.user.imgUrl + ')'
       }
     }
   },
   methods: {
     // drag開始時の処理
     dragstart: function (e) {
-      let dragObj = document.getElementById('user' + this.user.id)
+      let dragObj = this.$el
       let boxLeft = dragObj.getBoundingClientRect().left
       let boxTop = dragObj.getBoundingClientRect().top
       this.positionDiff.x = e.gesture.center.pageX - boxLeft
@@ -55,7 +55,7 @@ export default {
     drag: function (e) {
       let touchX = e.changedTouches[0].pageX
       let touchY = e.changedTouches[0].pageY
-      let dragObj = document.getElementById('user' + this.user.id)
+      let dragObj = this.$el
       dragObj.style.left = (touchX - this.positionDiff.x) + 'px'
       dragObj.style.top = (touchY - this.positionDiff.y) + 'px'
     },
@@ -66,7 +66,7 @@ export default {
       let touchX = e.gesture.center.pageX
       let touchY = e.gesture.center.pageY
       let objPosition = {x: touchX - this.positionDiff.x, y: touchY - this.positionDiff.y}
-      let dragObj = document.getElementById('user' + this.user.id)
+      let dragObj = this.$el
 
       if (Math.abs(touchX - this.firstTouchPosition.x) < dragDistanceCriterion) {
         let toPosition = {x: this.originalPosition.x, y: this.originalPosition.y}

@@ -37,6 +37,8 @@ export default {
 <style>
 body {
   margin: 0;
+  position: fixed;
+  top:0;
 }
 
 #app {
@@ -50,10 +52,6 @@ body {
   overflow:hidden;
 } 
 
-body {
-  margin: 0;
-
-}
 .wrapper{
     height:100%;
 }

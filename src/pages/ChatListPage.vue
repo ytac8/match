@@ -1,40 +1,40 @@
 <template>
-    <div id="chat-list">
+    <div id="chat-box">
         <Header :header-position="headerPosition"></Header>
-        <v-ons-list>
-            <v-ons-list-header>メッセージ</v-ons-list-header>
-            <ChatListItem v-for="item in items" :key="item.id" :item="item"></ChatListItem>
-        </v-ons-list>
+        <div id="chat-list">
+            <v-ons-list>
+                <v-ons-list-header>メッセージ</v-ons-list-header>
+                <ChatListItem v-for="item in items" :key="item.chatId" :item="item"></ChatListItem>
+            </v-ons-list>
+        </div>
     </div>
 </template>
 
 <script>
 import ChatListItem from '../components/ChatListItem.vue'
 import Header from '../components/Header.vue'
-import axios from 'axios'
 
 export default {
   name: 'ChatListPage',
   data () {
     return {
-      info: null,
       headerPosition: 2,
-      items: [
-        {id: 0, name: 'tamaki', message: 'こんにちは', img: 'static/img/profile/aitan.jpg'},
-        {id: 1, name: 'tamaki', message: 'こんにちは', img: 'static/img/profile/runatan.jpg'},
-        {id: 2, name: 'tamaki', message: 'こんにちは', img: 'static/img/profile/ponpoko.jpg'}
-      ]
+      items: []
     }
   },
-  mounted () {
-    axios
-      .get('https://api.coindesk.com/v1/bpi/currentprice.json')
-      .then(response => (this.info = response.data))
-      .catch(error => console.log(error))
+  created () {
+    this.setUserData()
   },
   methods: {
     check: function () {
       console.log(this.info)
+    },
+    setUserData () {
+      this.axios.get('http://localhost:8080/match/ChatListServlet')
+        .then((response) => {
+          this.items = response.data
+          console.log(response.data)
+        })
     }
   },
   components: {
@@ -46,7 +46,11 @@ export default {
 </script>
 
 <style scoped>
+#chat-box {
+    height:100% ;
+}
 #chat-list {
-    height:100%
+    height:calc(100% - 56px);
+    overflow:auto;
 }
 </style>
