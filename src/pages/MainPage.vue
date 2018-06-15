@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     setUserData () {
-      this.axios.get('http://localhost:8080/match/MainPageServlet').then((response) => {
+      this.axios.get('/MainPageServlet').then((response) => {
         this.userData = response.data
       })
     },

@@ -9,7 +9,7 @@ export default {
   name: 'LikeButton',
   props: {
     buttonName: String,
-    userId: Number
+    userId: String
   },
   data () {
     return {

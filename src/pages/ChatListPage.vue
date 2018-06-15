@@ -30,7 +30,7 @@ export default {
       console.log(this.info)
     },
     setUserData () {
-      this.axios.get('http://localhost:8080/match/ChatListServlet')
+      this.axios.get('ChatListServlet')
         .then((response) => {
           this.items = response.data
           console.log(response.data)

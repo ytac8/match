@@ -19,7 +19,7 @@ export default {
     return {
       headerPosition: 0,
       userData:
-        {id: 0, name: '輝夜 月', profile: "輝夜月だよ〜〜〜∠( 'ω')／", img: 'runatan.jpg'}
+        {id: 0, name: '輝夜 月', profile: "輝夜月だよ〜〜〜∠( 'ω')／", img: 'static/img/profile/runatan.jpg'}
     }
   },
   methods: {

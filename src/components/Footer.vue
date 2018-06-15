@@ -1,6 +1,6 @@
 <template>
     <div class="footer">
-        <LikeButton button-name="like" 
+        <LikeButton button-name="like"
             :user-id="userInfo.userId" 
             v-on:remove="$emit('remove')">
         </LikeButton>

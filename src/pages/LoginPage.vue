@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     login: function () {
-      let url = 'http://localhost:8080/match/LoginServlet'
+      let url = 'LoginServlet'
       let params = new URLSearchParams()
       params.append('userId', this.userId)
       params.append('password', this.password)
@@ -40,6 +40,7 @@ export default {
       }).then(() => {
         if (this.isValid) {
           localStorage.setItem('token', this.token)
+          localStorage.setItem('isValid', this.isValid)
           localStorage.setItem('userId', this.userId)
           this.$router.push({name: 'MainPage'})
         } else {

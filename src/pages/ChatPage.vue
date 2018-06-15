@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     setItems () {
-      let url = 'http://localhost:8080/match/ChatServlet?id=' + this.$route.params.id
+      let url = 'ChatServlet?id=' + this.$route.params.id
       this.axios.get(url).then((response) => {
         this.items = response.data.map(function (e) {
           if (e.from === 5) {
@@ -68,7 +68,7 @@ export default {
         params.append('matchId', this.$route.params.id)
         params.append('time', datetime)
 
-        this.axios.post('http://localhost:8080/match/ChatServlet', params)
+        this.axios.post('ChatServlet', params)
           .then(response => {
             console.log('aaaaw')
             console.log(response.data.message)
