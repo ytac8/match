@@ -64,20 +64,20 @@ export default {
 
     // drag終了時の処理
     touchLeave: function (e) {
-      let dragDistanceCriterion = window.parent.screen.width * 0.10
+      let dragDistanceCriterion = window.parent.screen.width * 0.20
       let touchX = e.gesture.center.pageX
       let touchY = e.gesture.center.pageY
       let objPosition = {x: touchX - this.positionDiff.x, y: touchY - this.positionDiff.y}
 
       if (Math.abs(touchX - this.firstTouchPosition.x) < dragDistanceCriterion) {
         let toPosition = {x: this.originalPosition.x, y: this.originalPosition.y}
-        this.move(toPosition, 500)
+        this.move(toPosition, 300)
       } else {
         let deltaX = objPosition.x - this.originalPosition.x
         let deltaY = objPosition.y - this.originalPosition.y
         let grad = deltaY / deltaX
         let toPosition = {x: deltaX * 7, y: grad * deltaX * 7}
-        this.moveAndRemove(toPosition, 800)
+        this.moveAndRemove(toPosition, 900)
       }
     },
 
@@ -86,7 +86,7 @@ export default {
         {
           top: toPosition.y + 'px',
           left: toPosition.x + 'px'
-        }, 500, 'swing'
+        }, interval, 'swing'
       )
     },
     moveAndRemove: function (toPosition, interval) {
@@ -95,7 +95,7 @@ export default {
         {
           top: toPosition.y + 'px',
           left: toPosition.x + 'px'
-        }, 500, 'swing', function () {
+        }, interval, 'swing', function () {
           vm.$emit('remove')
         }
       )

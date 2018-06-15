@@ -2,25 +2,49 @@
     <div id="login-page">
         <div id="login-content">
             <Logo></Logo>
-            <LoginButton></LoginButton>
+            <input name="user-id" type="text" placeholder="user name" class="text-input" v-model="userId">
+            <input name="password" type="password" placeholder="password" class="text-input" v-model="password">
+            <div id="login-button">
+                <span id="login-text" @touch="login" >Login</span>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-import LoginButton from '../components/LoginButton.vue'
 import Logo from '../components/Logo.vue'
 
 export default {
   name: 'LoginPage',
-  methods: {
-    login: function () {
-      localStorage.setItem('isLoggedIn', 'true')
-      this.$router.push({name: 'MainPage'})
+  data () {
+    return {
+      userId: '',
+      password: '',
+      token: '',
+      isValid: false
     }
   },
+  methods: {
+    login: function () {
+      let url = 'http://localhost:8080/match/LoginServlet'
+      let params = new URLSearchParams()
+      params.append('userId', this.userId)
+      params.append('password', this.password)
+      this.axios.post(url, params).then((response) => {
+        console.log(response)
+        this.userId = response.data.userId
+        this.token = response.data.token
+        this.isValid = response.data.isValid
+      })
+
+      console.log(this.userId)
+      console.log(this.token)
+      localStorage.clear()
+      // this.$router.push({name: 'MainPage'})
+    }
+
+  },
   components: {
-    LoginButton,
     Logo
   }
 }
@@ -53,6 +77,29 @@ img {
     text-align:center;
     position:relative;
     top:-30px;
+}
+
+.text-input{
+    border: solid 1px #ccc;
+    border-radius: 5px; 
+    padding:10px;
+    margin:5px;
+}
+
+#login-button { 
+    background-color: #3a589e;
+    width: 200px;
+    height: 40px;
+    color: white;
+    margin-top: 3px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#login-text {
+    position: relative;
+    font-weight: bold;
+    top: 25%;
 }
 
 </style>

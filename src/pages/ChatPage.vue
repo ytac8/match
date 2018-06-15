@@ -54,22 +54,14 @@ export default {
     },
     send: function () {
       if (this.input !== '') {
-        let lastId = this.items[this.items.length - 1].id
         this.items.push(
-          { id: lastId + 1,
+          {
             iconUrl: 'static/img/profile/ponpoko.jpg',
             message: this.input,
             from: 'me'
           })
 
-        let date = new Date()
-        let year = date.getFullYear()
-        let month = date.getMonth()
-        let day = date.getDate()
-        let hour = date.getHours()
-        let minute = date.getMinutes()
-        let second = date.getSeconds()
-        let datetime = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second
+        let datetime = this.getNowDate()
         let params = new URLSearchParams()
         params.append('userFrom', '5')
         params.append('message', this.input)
@@ -89,8 +81,15 @@ export default {
         document.getElementById('input-box').value = ''
       })
     },
-    check: function () {
-      console.log(this.items)
+    getNowDate () {
+      let date = new Date()
+      let year = date.getFullYear()
+      let month = date.getMonth()
+      let day = date.getDate()
+      let hour = date.getHours()
+      let minute = date.getMinutes()
+      let second = date.getSeconds()
+      return year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second
     }
   },
   watch: {
