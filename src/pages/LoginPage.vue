@@ -2,6 +2,7 @@
     <div id="login-page">
         <div id="login-content">
             <Logo></Logo>
+            <div id="error" :v-if="error">{{ loginErrorMsg }}</div>
             <input name="user-id" type="text" placeholder="user name" class="text-input" v-model="userId">
             <input name="password" type="password" placeholder="password" class="text-input" v-model="password">
             <div id="login-button">
@@ -21,7 +22,9 @@ export default {
       userId: '',
       password: '',
       token: '',
-      isValid: false
+      isValid: false,
+      error: false,
+      loginErrorMsg: ''
     }
   },
   methods: {
@@ -31,18 +34,28 @@ export default {
       params.append('userId', this.userId)
       params.append('password', this.password)
       this.axios.post(url, params).then((response) => {
-        console.log(response)
         this.userId = response.data.userId
         this.token = response.data.token
         this.isValid = response.data.isValid
+      }).then(() => {
+        if (this.isValid) {
+          localStorage.setItem('token', this.token)
+          localStorage.setItem('userId', this.userId)
+          this.$router.push({name: 'MainPage'})
+        } else {
+          this.loginErrorMsg = 'IDかパスワードが違います'
+        }
+      }).catch(function (error) {
+        this.loginErrorMsg = 'サーバエラーです'
+        console.log(error)
       })
-
-      console.log(this.userId)
-      console.log(this.token)
-      localStorage.clear()
-      // this.$router.push({name: 'MainPage'})
     }
 
+  },
+  watch: {
+    loginError: function () {
+      this.error = true
+    }
   },
   components: {
     Logo
@@ -100,6 +113,10 @@ img {
     position: relative;
     font-weight: bold;
     top: 25%;
+}
+
+#error{
+    color: red;
 }
 
 </style>
