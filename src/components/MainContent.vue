@@ -18,7 +18,7 @@ import $ from 'jquery'
 export default {
   name: 'MainContent',
   props: {
-    user: Object
+    user: Object,
   },
   data () {
     return {
@@ -77,7 +77,11 @@ export default {
         let deltaY = objPosition.y - this.originalPosition.y
         let grad = deltaY / deltaX
         let toPosition = {x: deltaX * 7, y: grad * deltaX * 7}
-        this.moveAndRemove(toPosition, 900)
+        if (deltaX > 0) {
+          this.moveAndLike(toPosition, 900)
+        } else {
+          this.moveAndDislike(toPosition, 900)
+        }
       }
     },
 
@@ -89,14 +93,27 @@ export default {
         }, interval, 'swing'
       )
     },
-    moveAndRemove: function (toPosition, interval) {
+
+    moveAndLike: function (toPosition, interval) {
       let vm = this
       $('#' + this.id).animate(
         {
           top: toPosition.y + 'px',
           left: toPosition.x + 'px'
         }, interval, 'swing', function () {
-          vm.$emit('remove')
+          vm.$emit('remove', true)
+        }
+      )
+    },
+
+    moveAndDislike: function (toPosition, interval) {
+      let vm = this
+      $('#' + this.id).animate(
+        {
+          top: toPosition.y + 'px',
+          left: toPosition.x + 'px'
+        }, interval, 'swing', function () {
+          vm.$emit('remove', false)
         }
       )
     }

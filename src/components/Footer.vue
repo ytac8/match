@@ -2,11 +2,11 @@
     <div class="footer">
         <LikeButton button-name="like"
             :user-id="userId" 
-            v-on:remove="$emit('remove')">
+            v-on:remove="$emit('remove', true)">
         </LikeButton>
         <LikeButton button-name="dislike"
             :user-id="userId" 
-            v-on:remove="$emit('remove')">
+            v-on:remove="$emit('remove', false)">
         </LikeButton>
     </div>
 </template>

@@ -5,8 +5,7 @@
             v-for="(user, index) in userData"
             :key=user.userId 
             :user="user" 
-            v-on:remove="userData.splice(index, 1)"></MainContent>
-        <!-- <div style="background-color:red; width:100%; height:10%; z-index:10; position:fixed; bottom:0;" @click="hello"></div> -->
+            v-on:remove="remove"></MainContent>
         <Footer :user-id="topUserId" v-on:remove="remove"></Footer>
     </div>
 </template>
@@ -39,8 +38,12 @@ export default {
         this.topUserId = this.userData[this.userData.length - 1].userId
       })
     },
-    remove: function () {
-      this.userData.splice(this.userData.length - 1, 1)
+    remove: function (isLike) {
+      if (isLike) {
+        this.userData.splice(this.userData.length - 1, 1)
+      } else {
+        this.userData.splice(this.userData.length - 1, 1)
+      }
     }
   },
   watch: {
