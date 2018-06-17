@@ -19,6 +19,7 @@ export default {
   data () {
     return {
       headerPosition: 2,
+      userId: localStorage.getItem('userId'),
       items: []
     }
   },
@@ -26,14 +27,12 @@ export default {
     this.setUserData()
   },
   methods: {
-    check: function () {
-      console.log(this.info)
-    },
     setUserData () {
-      this.axios.get('ChatListServlet')
+      // let url = 'ChatListServlet'
+      let url = 'http://localhost:8080/match2/ChatListServlet'
+      this.axios.get(url + '?userId=' + this.userId)
         .then((response) => {
           this.items = response.data
-          console.log(response.data)
         })
     }
   },

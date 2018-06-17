@@ -22,6 +22,7 @@ export default {
       userId: '',
       password: '',
       token: '',
+      expirationTime: '',
       isValid: false,
       error: false,
       loginErrorMsg: ''
@@ -29,7 +30,8 @@ export default {
   },
   methods: {
     login: function () {
-      let url = 'LoginServlet'
+      // let url = 'LoginServlet'
+      let url = 'http://localhost:8080/match2/LoginServlet'
       let params = new URLSearchParams()
       params.append('userId', this.userId)
       params.append('password', this.password)
@@ -37,10 +39,12 @@ export default {
         this.userId = response.data.userId
         this.token = response.data.token
         this.isValid = response.data.isValid
+        this.expirationTime = response.data.expirationTime
       }).then(() => {
         if (this.isValid) {
           localStorage.setItem('token', this.token)
           localStorage.setItem('isValid', this.isValid)
+          localStorage.setItem('expirationTime', this.expirationTime)
           localStorage.setItem('userId', this.userId)
           this.$router.push({name: 'MainPage'})
         } else {

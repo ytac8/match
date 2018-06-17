@@ -18,14 +18,21 @@ Vue.use(Vue2TouchEvents)
 // Vue.use(VueSocketio, 'localhost')
 Vue.router = router
 
-// router.beforeEach((to, from, next) => {
-//   console.log(localStorage.getItem('isLoggedIn'))
-//   if (to.matched.some(record => record.meta.requiresAuth) && !localStorage.getItem('isValid')) {
-//     next({path: '/login', query: {redirect: to.fullPath}})
-//   } else {
-//     next()
-//   }
-// })
+let checkExpirationTime = function () {
+  if (localStorage.getItem('expirationTime') == null) { return false } else if (new Date(localStorage.getItem('expirationTime')) < Date.now()) {
+    return false
+  } else {
+    return true
+  }
+}
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth) && !checkExpirationTime()) {
+    next({path: '/login', query: {redirect: to.fullPath}})
+  } else {
+    next()
+  }
+})
 
 /* eslint-disable no-new */
 new Vue({

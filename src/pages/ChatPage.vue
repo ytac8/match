@@ -5,7 +5,7 @@
             <div class="title">
                 <span class="name">Tamaki</span>
             </div>
-            <div id="messages"> <MessageItem v-for="item in items" :key="item.messageId" :from="item.from" :message="item.message" :icon-url="item.iconUrl"> </MessageItem>
+            <div id="messages"> <MessageItem v-for="item in items" :key="item.messageId" :from="item.from" :message="item.message" :icon-url="item.imgUrl"> </MessageItem>
             </div>
             <div class="message-input">
                 <input id="input-box" type="text" placeholder="message" class="text-input" v-model="input"></input>
@@ -27,6 +27,7 @@ export default {
   data () {
     return {
       headerPosition: 3,
+      userId: localStorage.getItem('userId'),
       input: '',
       items: []
     }
@@ -40,10 +41,12 @@ export default {
   },
   methods: {
     setItems () {
-      let url = 'ChatServlet?id=' + this.$route.params.id
+      // let url = 'ChatServlet?id=' + this.$route.params.id
+      let url = 'http://localhost:8080/match2/ChatServlet?id=' + this.$route.params.id
+      let vm = this
       this.axios.get(url).then((response) => {
         this.items = response.data.map(function (e) {
-          if (e.from === 5) {
+          if (e.from === vm.userId) {
             e.from = 'me'
           } else {
             e.from = 'other'
@@ -63,15 +66,16 @@ export default {
 
         let datetime = this.getNowDate()
         let params = new URLSearchParams()
-        params.append('userFrom', '5')
+        params.append('userFrom', this.userId)
         params.append('message', this.input)
         params.append('matchId', this.$route.params.id)
         params.append('time', datetime)
 
-        this.axios.post('ChatServlet', params)
+        // let url = 'ChatServlet'
+        let url = 'http://localhost:8080/match2/ChatServlet'
+        this.axios.post(url, params)
           .then(response => {
-            console.log('aaaaw')
-            console.log(response.data.message)
+            // console.log(response.data.message)
           }).catch(error => {
             console.log(error)
           })

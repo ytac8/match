@@ -1,6 +1,6 @@
 <template>
     <div id="header-icon">
-        <img :src="srcUrl" :v-if="isShow" :alt="pagename" @click="linkTo()">
+        <img v-if="pagename != ''" :src="srcUrl" :alt="pagename" @click="linkTo()">
     </div>
 </template>
 
@@ -12,8 +12,7 @@ export default {
   },
   data () {
     return {
-      srcUrl: 'static/img/icons/' + this.pagename + '.svg',
-      isShow: (this.pagename === '')
+      srcUrl: 'static/img/icons/' + this.pagename + '.svg'
     }
   },
   methods: {
