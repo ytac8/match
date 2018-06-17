@@ -1,11 +1,11 @@
 <template>
     <div class="footer">
         <LikeButton button-name="like"
-            :user-id="userInfo.userId" 
+            :user-id="userId" 
             v-on:remove="$emit('remove')">
         </LikeButton>
         <LikeButton button-name="dislike"
-            :user-id="userInfo.userId" 
+            :user-id="userId" 
             v-on:remove="$emit('remove')">
         </LikeButton>
     </div>
@@ -17,7 +17,7 @@ import LikeButton from '../components/LikeButton.vue'
 export default {
   name: 'Footer',
   props: {
-    userInfo: Object
+    userId: String
   },
   components: {
     LikeButton
