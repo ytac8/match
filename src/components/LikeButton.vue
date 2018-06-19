@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     tapped: function () {
-      let userObj = document.getElementById('user' + this.userId)
+      let userObj = document.getElementById(this.userId)
       let objPosition = {x: 0, y: 0}
       let toPosition = (this.isLike) ? {x: 500, y: 56} : {x: -500, y: 56}
       let animate = this.move(userObj, objPosition, toPosition, 1000)

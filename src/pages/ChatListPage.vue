@@ -4,7 +4,7 @@
         <div id="chat-list">
             <v-ons-list>
                 <v-ons-list-header>メッセージ</v-ons-list-header>
-                <ChatListItem v-for="item in items" :key="item.chatId" :item="item"></ChatListItem>
+                <ChatListItem v-for="item in items" :key="item.chatId" :item="item" ></ChatListItem>
             </v-ons-list>
         </div>
     </div>
@@ -28,8 +28,8 @@ export default {
   },
   methods: {
     setUserData () {
-      // let url = 'ChatListServlet'
-      let url = 'http://localhost:8080/match2/ChatListServlet'
+      let url = 'ChatListServlet'
+      // let url = 'http://localhost:8080/match/ChatListServlet'
       this.axios.get(url + '?userId=' + this.userId)
         .then((response) => {
           this.items = response.data

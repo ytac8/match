@@ -39,8 +39,8 @@ export default {
   },
   methods: {
     setUserData () {
-      // let url = 'ProfileServlet'
-      let url = 'http://localhost:8080/match2/ProfileServlet'
+      let url = 'ProfileServlet'
+      // let url = 'http://localhost:8080/match/ProfileServlet'
       this.axios.get(url + '?userId=' + this.userId).then((response) => {
         this.userData = response.data
       })

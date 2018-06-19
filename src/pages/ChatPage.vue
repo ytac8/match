@@ -3,7 +3,7 @@
         <Header :header-position="headerPosition"></Header>
         <div id="chat-disp">
             <div class="title">
-                <span class="name">Tamaki</span>
+                <span class="name">{{userName}}</span>
             </div>
             <div id="messages"> <MessageItem v-for="item in items" :key="item.messageId" :from="item.from" :message="item.message" :icon-url="item.imgUrl"> </MessageItem>
             </div>
@@ -29,7 +29,8 @@ export default {
       headerPosition: 3,
       userId: localStorage.getItem('userId'),
       input: '',
-      items: []
+      items: [],
+      userName: ''
     }
   },
   created () {
@@ -41,8 +42,8 @@ export default {
   },
   methods: {
     setItems () {
-      // let url = 'ChatServlet?id=' + this.$route.params.id
-      let url = 'http://localhost:8080/match2/ChatServlet?id=' + this.$route.params.id
+      let url = 'ChatServlet?id=' + this.$route.params.id
+      // let url = 'http://localhost:8080/match/ChatServlet?id=' + this.$route.params.id
       let vm = this
       this.axios.get(url).then((response) => {
         this.items = response.data.map(function (e) {
@@ -50,6 +51,7 @@ export default {
             e.from = 'me'
           } else {
             e.from = 'other'
+            vm.userName = e.userName
           }
           return e
         })
@@ -71,11 +73,10 @@ export default {
         params.append('matchId', this.$route.params.id)
         params.append('time', datetime)
 
-        // let url = 'ChatServlet'
-        let url = 'http://localhost:8080/match2/ChatServlet'
+        let url = 'ChatServlet'
+        // let url = 'http://localhost:8080/match/ChatServlet'
         this.axios.post(url, params)
           .then(response => {
-            // console.log(response.data.message)
           }).catch(error => {
             console.log(error)
           })

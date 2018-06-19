@@ -3,10 +3,13 @@
         <Header :header-position="headerPosition"></Header>
         <MainContent 
             v-for="(user, index) in userData"
-            :key=user.userId 
+            :key="user.userId"
             :user="user" 
             v-on:remove="remove"></MainContent>
-        <Footer :user-id="topUserId" v-on:remove="remove"></Footer>
+
+        <!-- <Footer v-for="(user,  index) in userData" -->
+        <!--     :user-id="user.userId" -->
+        <!--     v-on:remove="remove"></Footer> -->
     </div>
 </template>
 
@@ -14,6 +17,7 @@
 import Footer from '../components/Footer.vue'
 import Header from '../components/Header.vue'
 import MainContent from '../components/MainContent'
+import s from '../../static/js/s_code.js'
 
 export default {
   name: 'MainPage',
@@ -31,7 +35,7 @@ export default {
   methods: {
     setUserData () {
       // let url = 'MainPageServlet'
-      let url = 'http://localhost:8080/match2/MainPageServlet'
+      let url = 'http://localhost:8080/match/MainPageServlet'
       this.axios.get(url).then((response) => {
         this.userData = response.data
       }).then(() => {
@@ -40,6 +44,7 @@ export default {
     },
     remove: function (isLike) {
       if (isLike) {
+        s.tl(this, 'o', 'hello')
         this.userData.splice(this.userData.length - 1, 1)
       } else {
         this.userData.splice(this.userData.length - 1, 1)

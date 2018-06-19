@@ -18,11 +18,11 @@ import $ from 'jquery'
 export default {
   name: 'MainContent',
   props: {
-    user: Object,
+    user: Object
   },
   data () {
     return {
-      id: 'user' + this.user.userId,
+      id: this.user.userId,
       originalPosition: {
         x: 0,
         y: 56
@@ -123,7 +123,7 @@ export default {
 
 <style lang="postcss" scoped>
 .main-content{
-    height:calc(100% - 56px - 100px);
+    height:calc(100%  - 100px);
     width: 100%;
     margin:0;
     position: absolute;
@@ -146,7 +146,7 @@ export default {
 }
 .name {
     opacity:1;
-    color:white;
+    color:green;
     font-size: 28px;
     font-weight:bold;
     padding-left: 20px;
@@ -155,7 +155,7 @@ export default {
 }
 .self-intro {
     opacity:1;
-    color:white;
+    color:green;
     font-size: 16px;
     padding-left: 20px;
 }

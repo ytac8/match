@@ -30,8 +30,8 @@ export default {
   },
   methods: {
     login: function () {
-      // let url = 'LoginServlet'
-      let url = 'http://localhost:8080/match2/LoginServlet'
+      let url = 'LoginServlet'
+      // let url = 'http://localhost:8080/match/LoginServlet'
       let params = new URLSearchParams()
       params.append('userId', this.userId)
       params.append('password', this.password)
@@ -56,6 +56,9 @@ export default {
       })
     }
 
+  },
+  created () {
+    window.alert('user: user100,  pass: password')
   },
   watch: {
     loginError: function () {
